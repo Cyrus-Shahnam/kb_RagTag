@@ -1,0 +1,55 @@
+name: RagTag Merge
+tooltip: Reconcile multiple reference-guided scaffoldings into a consensus
+screenshots: []
+
+icon: null
+
+suggestions:
+    apps:
+        related: ["run_ragtag_scaffold"]
+        next: []
+    methods:
+        related: []
+        next: []
+
+parameters:
+    query_assembly_ref:
+        ui-name: Query (Draft) Assembly
+        short-hint: The draft assembly to be scaffolded and merged
+    reference_assembly_refs:
+        ui-name: Reference Assemblies (2 or more)
+        short-hint: Each reference produces one scaffolding; these are then reconciled
+        long-hint: The query is scaffolded against each reference separately, and the resulting AGP scaffoldings are merged into a consensus.
+    output_assembly_name:
+        ui-name: Output Assembly Name
+        short-hint: Name for the new merged consensus Assembly object
+    gap_func:
+        ui-name: Gap-size function
+        short-hint: How to combine gap sizes that differ between scaffoldings (--gap-func)
+    aligner:
+        ui-name: Aligner
+        short-hint: Whole-genome aligner used for the per-reference scaffolding
+    min_edge_weight:
+        ui-name: Min edge weight (-e)
+        short-hint: Minimum support to keep a join (e.g. set to N to require all N references agree)
+    threads:
+        ui-name: Threads
+        short-hint: Number of threads to use for alignment
+
+description: |
+    <p>This app wraps <b>RagTag merge</b>, which reconciles several different
+    scaffoldings of the same draft assembly into a single consensus, letting you
+    combine the strengths of multiple references.</p>
+    <p>To keep everything as KBase <b>Assembly</b> objects, this app takes the
+    draft assembly plus <b>two or more reference assemblies</b>. It scaffolds the
+    draft against each reference, then merges those scaffoldings. The result is a
+    new consensus Assembly.</p>
+    <p>Hi-C&ndash;based conflict resolution (RagTag's <code>-b</code> option) is
+    not exposed in this version.</p>
+
+publications:
+    -
+        display-text: |
+            Alonge, M., et al. (2022). Automated assembly scaffolding using RagTag.
+            Genome Biology.
+        link: https://doi.org/10.1186/s13059-022-02823-7

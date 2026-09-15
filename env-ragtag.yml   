@@ -1,0 +1,9 @@
+name: ragtag
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python >=3.7
+  - ragtag=2.1.0
+  - minimap2
+  - mummer

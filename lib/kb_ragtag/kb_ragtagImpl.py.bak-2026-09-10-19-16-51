@@ -1,0 +1,106 @@
+
+#BEGIN_HEADER
+from kb_ragtag.ragtag_utils import RagTagRunner
+#END_HEADER
+
+
+class kb_ragtag:
+    '''
+    Module Name:
+    kb_ragtag
+
+    Module Description:
+    Reference-guided genome assembly scaffolding and improvement with RagTag.
+    Provides four apps: correct, scaffold, patch, and merge.
+    '''
+
+    ######## WARNING FOR GEVENT USERS ####### noqa
+    # Don't run any other code in this module before you make sure all calls
+    # to other services are added to this module's __init__ method.
+
+    VERSION = "0.0.1"
+    GIT_URL = ""
+    GIT_COMMIT_HASH = ""
+
+    #BEGIN_CLASS_HEADER
+    #END_CLASS_HEADER
+
+    def __init__(self, config):
+        #BEGIN_CONSTRUCTOR
+        self.config = config
+        #END_CONSTRUCTOR
+        pass
+
+    def run_ragtag_correct(self, ctx, params):
+        """
+        :param params: instance of type "CorrectParams"
+        :returns: instance of type "RagTagResults"
+        """
+        # ctx is the context object
+        # return variables are: output
+        #BEGIN run_ragtag_correct
+        output = RagTagRunner(self.config).correct(params)
+        #END run_ragtag_correct
+
+        if not isinstance(output, dict):
+            raise ValueError('Method run_ragtag_correct return value ' +
+                             'output is not type dict as required.')
+        return [output]
+
+    def run_ragtag_scaffold(self, ctx, params):
+        """
+        :param params: instance of type "ScaffoldParams"
+        :returns: instance of type "RagTagResults"
+        """
+        # ctx is the context object
+        # return variables are: output
+        #BEGIN run_ragtag_scaffold
+        output = RagTagRunner(self.config).scaffold(params)
+        #END run_ragtag_scaffold
+
+        if not isinstance(output, dict):
+            raise ValueError('Method run_ragtag_scaffold return value ' +
+                             'output is not type dict as required.')
+        return [output]
+
+    def run_ragtag_patch(self, ctx, params):
+        """
+        :param params: instance of type "PatchParams"
+        :returns: instance of type "RagTagResults"
+        """
+        # ctx is the context object
+        # return variables are: output
+        #BEGIN run_ragtag_patch
+        output = RagTagRunner(self.config).patch(params)
+        #END run_ragtag_patch
+
+        if not isinstance(output, dict):
+            raise ValueError('Method run_ragtag_patch return value ' +
+                             'output is not type dict as required.')
+        return [output]
+
+    def run_ragtag_merge(self, ctx, params):
+        """
+        :param params: instance of type "MergeParams"
+        :returns: instance of type "RagTagResults"
+        """
+        # ctx is the context object
+        # return variables are: output
+        #BEGIN run_ragtag_merge
+        output = RagTagRunner(self.config).merge(params)
+        #END run_ragtag_merge
+
+        if not isinstance(output, dict):
+            raise ValueError('Method run_ragtag_merge return value ' +
+                             'output is not type dict as required.')
+        return [output]
+
+    def status(self, ctx):
+        #BEGIN_STATUS
+        returnVal = {'state': "OK",
+                     'message': "",
+                     'version': self.VERSION,
+                     'git_url': self.GIT_URL,
+                     'git_commit_hash': self.GIT_COMMIT_HASH}
+        #END_STATUS
+        return [returnVal]

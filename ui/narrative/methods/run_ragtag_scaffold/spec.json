@@ -1,0 +1,155 @@
+{
+    "ver": "0.0.1",
+    "authors": ["ac.shahnam"],
+    "contact": "https://www.kbase.us/support/",
+    "categories": ["active", "assembly"],
+    "widgets": {
+        "input": null,
+        "output": "no-display"
+    },
+    "parameters": [
+        {
+            "id": "reference_assembly_ref",
+            "optional": false,
+            "advanced": false,
+            "allow_multiple": false,
+            "default_values": [""],
+            "field_type": "text",
+            "text_options": {
+                "valid_ws_types": ["KBaseGenomeAnnotations.Assembly"]
+            }
+        },
+        {
+            "id": "query_assembly_ref",
+            "optional": false,
+            "advanced": false,
+            "allow_multiple": false,
+            "default_values": [""],
+            "field_type": "text",
+            "text_options": {
+                "valid_ws_types": ["KBaseGenomeAnnotations.Assembly"]
+            }
+        },
+        {
+            "id": "output_assembly_name",
+            "optional": false,
+            "advanced": false,
+            "allow_multiple": false,
+            "default_values": [""],
+            "field_type": "text",
+            "text_options": {
+                "valid_ws_types": ["KBaseGenomeAnnotations.Assembly"],
+                "is_output_name": true
+            }
+        },
+        {
+            "id": "aligner",
+            "optional": true,
+            "advanced": false,
+            "allow_multiple": false,
+            "default_values": ["minimap2"],
+            "field_type": "dropdown",
+            "dropdown_options": {
+                "options": [
+                    {"value": "minimap2", "display": "minimap2"},
+                    {"value": "nucmer", "display": "nucmer"}
+                ]
+            }
+        },
+        {
+            "id": "threads",
+            "optional": true,
+            "advanced": true,
+            "allow_multiple": false,
+            "default_values": ["4"],
+            "field_type": "text",
+            "text_options": {
+                "validate_as": "int",
+                "min_int": 1
+            }
+        },
+        {
+            "id": "min_unique_len",
+            "optional": true,
+            "advanced": true,
+            "allow_multiple": false,
+            "default_values": ["1000"],
+            "field_type": "text",
+            "text_options": {
+                "validate_as": "int",
+                "min_int": 0
+            }
+        },
+        {
+            "id": "concat_unplaced",
+            "optional": true,
+            "advanced": true,
+            "allow_multiple": false,
+            "default_values": ["0"],
+            "field_type": "checkbox",
+            "checkbox_options": {
+                "checked_value": 1,
+                "unchecked_value": 0
+            }
+        },
+        {
+            "id": "infer_gaps",
+            "optional": true,
+            "advanced": true,
+            "allow_multiple": false,
+            "default_values": ["0"],
+            "field_type": "checkbox",
+            "checkbox_options": {
+                "checked_value": 1,
+                "unchecked_value": 0
+            }
+        }
+    ],
+    "behavior": {
+        "service-mapping": {
+            "url": "",
+            "name": "kb_ragtag",
+            "method": "run_ragtag_scaffold",
+            "input_mapping": [
+                {
+                    "narrative_system_variable": "workspace",
+                    "target_property": "workspace_name"
+                },
+                {
+                    "input_parameter": "reference_assembly_ref",
+                    "target_property": "reference_assembly_ref",
+                    "target_type_transform": "resolved-ref"
+                },
+                {
+                    "input_parameter": "query_assembly_ref",
+                    "target_property": "query_assembly_ref",
+                    "target_type_transform": "resolved-ref"
+                },
+                {
+                    "input_parameter": "output_assembly_name",
+                    "target_property": "output_assembly_name"
+                },
+                {"input_parameter": "aligner", "target_property": "aligner"},
+                {"input_parameter": "threads", "target_property": "threads"},
+                {"input_parameter": "min_unique_len", "target_property": "min_unique_len"},
+                {"input_parameter": "concat_unplaced", "target_property": "concat_unplaced"},
+                {"input_parameter": "infer_gaps", "target_property": "infer_gaps"}
+            ],
+            "output_mapping": [
+                {
+                    "narrative_system_variable": "workspace",
+                    "target_property": "ws"
+                },
+                {
+                    "service_method_output_path": [0, "report_name"],
+                    "target_property": "report_name"
+                },
+                {
+                    "service_method_output_path": [0, "report_ref"],
+                    "target_property": "report_ref"
+                }
+            ]
+        }
+    },
+    "job_id_output_field": "docker"
+}

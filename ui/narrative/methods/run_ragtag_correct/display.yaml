@@ -1,0 +1,58 @@
+name: RagTag Correct
+tooltip: Break a draft assembly at putative misassemblies using a reference
+screenshots: []
+
+icon: null
+
+suggestions:
+    apps:
+        related: []
+        next: ["run_ragtag_scaffold"]
+    methods:
+        related: []
+        next: []
+
+parameters:
+    reference_assembly_ref:
+        ui-name: Reference Assembly
+        short-hint: Reference used to detect discordant (misassembled) regions
+    query_assembly_ref:
+        ui-name: Query (Draft) Assembly
+        short-hint: Draft assembly to be checked and broken at misassemblies
+    output_assembly_name:
+        ui-name: Output Assembly Name
+        short-hint: Name for the new corrected Assembly object
+    aligner:
+        ui-name: Aligner
+        short-hint: Whole-genome aligner used to compare query to reference
+    break_mode:
+        ui-name: Break mode
+        short-hint: Restrict breaks to inter- or intra-reference-sequence discordances
+    threads:
+        ui-name: Threads
+        short-hint: Number of threads to use for alignment
+    min_unique_len:
+        ui-name: Min unique alignment length (-f)
+        short-hint: Minimum unique alignment length to retain an alignment
+    min_break_dist:
+        ui-name: Min break distance from ends (-b)
+        short-hint: Do not break within this many bp of a contig terminus
+
+description: |
+    <p>This app wraps <b>RagTag correct</b>, which compares a draft (query)
+    assembly to a reference and breaks query sequences at points of suspected
+    misassembly. <b>Sequence is never added or removed</b> &mdash; contigs are
+    only split.</p>
+    <p>Inputs and outputs are KBase <b>Assembly</b> objects. The corrected
+    assembly is a good starting point for downstream RagTag Scaffold.</p>
+    <p>Note: reference-guided break signals can also arise from true biological
+    structural variation between genotypes. Validate results with independent
+    data where possible. (Read-based break validation is not exposed in this
+    version of the app.)</p>
+
+publications:
+    -
+        display-text: |
+            Alonge, M., et al. (2022). Automated assembly scaffolding using RagTag.
+            Genome Biology.
+        link: https://doi.org/10.1186/s13059-022-02823-7

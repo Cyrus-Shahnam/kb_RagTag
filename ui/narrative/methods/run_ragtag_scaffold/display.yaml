@@ -1,0 +1,58 @@
+name: RagTag Scaffold
+tooltip: Reference-guided scaffolding of a draft genome assembly with RagTag
+screenshots: []
+
+icon: null
+
+suggestions:
+    apps:
+        related: []
+        next: []
+    methods:
+        related: []
+        next: []
+
+parameters:
+    reference_assembly_ref:
+        ui-name: Reference Assembly
+        short-hint: High-quality reference assembly used to guide scaffolding
+        long-hint: The query contigs are ordered and oriented against this reference.
+    query_assembly_ref:
+        ui-name: Query (Draft) Assembly
+        short-hint: Draft assembly whose contigs will be ordered and oriented
+    output_assembly_name:
+        ui-name: Output Assembly Name
+        short-hint: Name for the new scaffolded Assembly object
+    aligner:
+        ui-name: Aligner
+        short-hint: Sequence aligner used to map the query to the reference
+        long-hint: minimap2 is fast and recommended for most genomes; nucmer (MUMmer) is an alternative.
+    threads:
+        ui-name: Threads
+        short-hint: Number of threads to use for alignment
+    min_unique_len:
+        ui-name: Min unique alignment length (-f)
+        short-hint: Minimum unique alignment length to retain an alignment
+    concat_unplaced:
+        ui-name: Concatenate unplaced contigs (-C)
+        short-hint: Concatenate unplaced contigs into a single 'Chr0' sequence
+    infer_gaps:
+        ui-name: Infer gap sizes (-r)
+        short-hint: Estimate gap sizes from the reference instead of using fixed 100 bp gaps
+
+description: |
+    <p>This app wraps <b>RagTag scaffold</b>, which orders and orients the contigs
+    of a draft (query) genome assembly using a closely related reference assembly,
+    joining them into scaffolds separated by gaps.</p>
+    <p>Inputs and outputs are KBase <b>Assembly</b> objects. The app produces a new
+    scaffolded Assembly plus a report containing the AGP file, scaffolding statistics,
+    and per-scaffold confidence scores.</p>
+    <p>RagTag does not break or alter input sequence during scaffolding; to fix
+    suspected misassemblies first, run RagTag <i>correct</i> (a separate app).</p>
+
+publications:
+    -
+        display-text: |
+            Alonge, M., et al. (2022). Automated assembly scaffolding using RagTag
+            elevates a new tomato system for high-throughput genome editing. Genome Biology.
+        link: https://doi.org/10.1186/s13059-022-02823-7

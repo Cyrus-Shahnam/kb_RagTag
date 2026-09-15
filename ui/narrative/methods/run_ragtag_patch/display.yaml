@@ -1,0 +1,52 @@
+name: RagTag Patch
+tooltip: Fill gaps and join sequences in an assembly using a second assembly
+screenshots: []
+
+icon: null
+
+suggestions:
+    apps:
+        related: []
+        next: []
+    methods:
+        related: []
+        next: []
+
+parameters:
+    target_assembly_ref:
+        ui-name: Target Assembly
+        short-hint: The assembly to be improved (gaps filled / sequences joined)
+    query_assembly_ref:
+        ui-name: Query Assembly
+        short-hint: Assembly whose sequences are used to patch the target
+    output_assembly_name:
+        ui-name: Output Assembly Name
+        short-hint: Name for the new patched Assembly object
+    patch_mode:
+        ui-name: Patch mode
+        short-hint: Fill gaps only, make joins only, or both
+    aligner:
+        ui-name: Aligner
+        short-hint: Whole-genome aligner (nucmer is the RagTag-recommended default for patch)
+    threads:
+        ui-name: Threads
+        short-hint: Number of threads to use for alignment
+    min_unique_len:
+        ui-name: Min unique alignment length (-f)
+        short-hint: Minimum unique alignment length to retain an alignment
+
+description: |
+    <p>This app wraps <b>RagTag patch</b>, which uses one assembly (the query)
+    to improve another (the target). Two kinds of patches are made: <b>fills</b>
+    close existing gaps, and <b>joins</b> connect distinct target sequences &mdash;
+    scaffolding and gap-filling in a single step.</p>
+    <p>Inputs and outputs are KBase <b>Assembly</b> objects. Patch defaults to the
+    nucmer aligner; for highly complete (T2T) query assemblies, consider relaxing
+    the alignment-break tolerance described in the RagTag docs.</p>
+
+publications:
+    -
+        display-text: |
+            Alonge, M., et al. (2022). Automated assembly scaffolding using RagTag.
+            Genome Biology.
+        link: https://doi.org/10.1186/s13059-022-02823-7
